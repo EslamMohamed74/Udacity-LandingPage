@@ -1,6 +1,35 @@
+/**
+ * 
+ * Manipulating the DOM exercise.
+ * Exercise programmatically builds navigation,
+ * scrolls to anchors from navigation,
+ * and highlights section in viewport upon scrolling.
+ * 
+ * Dependencies: None
+ * 
+ * JS Version: ES2015/ES6
+ * 
+ * JS Standard: ESlint
+ * 
+*/
+
+/**
+ * Define Global Variables
+ * 
+*/
+
+// Getting `Nav Bar List` Element.
 const navBarElement = document.querySelector('#navbar__list');
+// Gettiing Sections Elements.
 const sectionsList = document.querySelectorAll('section');
 
+/**
+ * End Global Variables
+ * Start Helper Functions
+ * 
+*/
+
+// Get current position of current section
 const getSectionPosition = (section) => {
     return section?.getBoundingClientRect();
 }
@@ -18,6 +47,7 @@ const addActiveClassToSection = (section) => {
     section.classList.add('your-active-class');
 }
 
+// Handle Back to top button
 const handleBackToTopButton = () => {
     const backToTopBtn = document.querySelector("#backToTop");
 
@@ -35,6 +65,7 @@ const backToTop = () => {
     });
 }
 
+// Switch Classes for Nav Bar
 const handleNavBarActiveState = (hrefAttr) => {
     const navBarListItemsAnchors = document.querySelectorAll('#navbar__list .navbar__item .menu__link');
 
@@ -47,51 +78,78 @@ const handleNavBarActiveState = (hrefAttr) => {
     });
 }
 
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ * 
+*/
+
+// Build menu 
+// build the nav
 const addHomeItem = () => {
+    
+    // Create Item Element & add it's attributes
     const homeItem = document.createElement('li');
     homeItem.className = 'navbar__item';
 
+    // Create ItemAnchor Element & add it's attributes
     const homeAnchorElement = document.createElement('a');
     homeAnchorElement.className = 'menu__link navbar__active';
     homeAnchorElement.textContent = 'Home';
     homeAnchorElement.setAttribute('href', '#navbar__list');
     homeAnchorElement.onclick = () => backToTop();
 
+    // Add Anchor Element To List Item Element,
+    // then add Home Element to Nav Bar
     homeItem.appendChild(homeAnchorElement);
     navBarElement.appendChild(homeItem);
 }
 
+// Call the method to execute
 addHomeItem();
 
 const navBarItemsBuilder = () => {
+    // Create temp container.
     const tempDoc = document.createDocumentFragment();
+
+    // Initialize some variables
     let sectionID;
     let sectionDataNav;
     let navBarItem;
 
     let itemAnchorElement;
 
+    // Loop through `sections`
     sectionsList.forEach(section => {
+        // get required section's data
         sectionID = section.id;
         sectionDataNav = section.getAttribute('data-nav');
 
+        // Create Item Element & add it's attributes
         navBarItem = document.createElement('li');
         navBarItem.className = 'navbar__item';
 
+        // Create ItemAnchor Element & add it's attributes
         itemAnchorElement = document.createElement('a');
         itemAnchorElement.className = 'menu__link';
         itemAnchorElement.setAttribute('href', `#${sectionID}`);
         itemAnchorElement.textContent = sectionDataNav;
 
+        // Add Anchor Element To List Item Element,
+        // then add Item Element to container
         navBarItem.appendChild(itemAnchorElement);
         tempDoc.appendChild(navBarItem);
     });
 
+    // add that container to Nav Bar List
     navBarElement.appendChild(tempDoc);
 }
 
+// Call the method to execute
 navBarItemsBuilder();
 
+// Add class 'active' to section when near top of viewport
+// Set sections as active
 const handleSectionsActiveState = () => {
     handleBackToTopButton();
 
@@ -114,6 +172,8 @@ const handleSectionsActiveState = () => {
 
 window.addEventListener('scroll', handleSectionsActiveState);
 
+// Scroll to anchor ID using scrollTO event
+// Scroll to section on link click
 const scrollToSection = () => {
     document.querySelectorAll('a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -134,4 +194,42 @@ const scrollToSection = () => {
     });
 }
 
+// Call the method to execute
 scrollToSection();
+
+// define all UI variable
+const navToggler = document.querySelector('.nav-toggler');
+const navMenu = document.querySelector('.navbar__menu ul');
+const navLinks = document.querySelectorAll('.navbar__menu a');
+
+// load all event listners
+allEventListners();
+
+// functions of all event listners
+function allEventListners() {
+    // toggler icon click event
+    navToggler.addEventListener('click', togglerClick);
+    // nav links click event
+    navLinks.forEach(elem => elem.addEventListener('click', navLinkClick));
+}
+
+// togglerClick function
+function togglerClick() {
+    navToggler.classList.toggle('toggler-open');
+    navMenu.classList.toggle('open');
+}
+
+// navLinkClick function
+function navLinkClick() {
+    if (navMenu.classList.contains('open')) {
+        navToggler.click();
+    }
+}
+
+/**
+ * End Main Functions
+ * Begin Events
+ * 
+*/
+
+
