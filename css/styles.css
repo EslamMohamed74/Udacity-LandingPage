@@ -8,14 +8,14 @@
  *
 */
 
-html{
+html {
     /* scroll-behavior: smooth; */
 }
 
 /* ---- Base Rules ---- */
 body {
-    background: rgb(136,203,171);
-    background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
+    background: rgb(136, 203, 171);
+    background: linear-gradient(0deg, rgba(136, 203, 171, 1) 0%, rgba(0, 13, 60, 1) 100%);
     margin: 0;
     font-family: 'Merriweather', serif;
     color: #fff;
@@ -29,7 +29,7 @@ h1 {
     margin: 2em 1rem;
 }
 
-@media only screen and (min-width: 35em){
+@media only screen and (min-width: 35em) {
     h1 {
         font-size: 7em;
         margin: 2em 4rem 1em;
@@ -67,6 +67,10 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+.navbar__menu{
+    background: rgba(0,0,0,.75);
+    border-bottom: 1px solid #000;
+}
 .navbar__menu ul {
     display: flex;
     padding-left: 0;
@@ -99,6 +103,53 @@ section {
     transition: ease 0.3s all;
 }
 
+/* nav-toggler css start */
+.nav-toggler {
+    border: 3px solid #fff;
+    padding: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    height: 39px;
+    display: none;
+    float: right;
+    margin: .8em;
+}
+
+.nav-toggler span,
+.nav-toggler span:before,
+.nav-toggler span:after {
+    width: 28px;
+    height: 3px;
+    background-color: #fff;
+    display: block;
+    transition: .3s;
+}
+
+.nav-toggler span:before {
+    content: '';
+    transform: translateY(-9px);
+}
+
+.nav-toggler span:after {
+    content: '';
+    transform: translateY(6px);
+}
+
+.nav-toggler.toggler-open span {
+    background-color: transparent;
+}
+
+.nav-toggler.toggler-open span:before {
+    transform: translateY(0px) rotate(45deg);
+}
+
+.nav-toggler.toggler-open span:after {
+    transform: translateY(-3px) rotate(-45deg);
+}
+
+/* nav-toggler css start */
+
+
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -116,7 +167,7 @@ section {
     text-align: center;
 }
 
-.page__footer p{
+.page__footer p {
     color: #fff;
 }
 
@@ -128,7 +179,7 @@ section {
     text-align: left;
 }
 
-@media only screen and (min-width: 35em){
+@media only screen and (min-width: 35em) {
     .landing__container {
         max-width: 50em;
         padding: 4em;
@@ -138,7 +189,7 @@ section {
 section:nth-of-type(even) .landing__container {
     margin-right: 0;
     margin-left: auto;
-    text-align: right; 
+    text-align: right;
 }
 
 /* Background Circles */
@@ -158,8 +209,8 @@ section:nth-of-type(odd) .landing__container::before {
 
 section:nth-of-type(even) .landing__container::before {
     content: '';
-    background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .2) 100%);
     position: absolute;
     top: 3em;
     right: 3em;
@@ -173,8 +224,8 @@ section:nth-of-type(even) .landing__container::before {
 
 section:nth-of-type(3n) .landing__container::after {
     content: '';
-    background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .2) 100%);
     position: absolute;
     right: 0;
     bottom: 0;
@@ -188,8 +239,8 @@ section:nth-of-type(3n) .landing__container::after {
 
 section:nth-of-type(3n + 1) .landing__container::after {
     content: '';
-    background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .2) 100%);
     position: absolute;
     right: 20vw;
     bottom: -5em;
@@ -237,19 +288,74 @@ section.your-active-class .landing__container::after {
 }
 
 #backToTop:hover {
-background-color: #555;
+    background-color: #555;
 }
 
 /* Section Active Styles Keyframe Animations */
 @keyframes rotate {
-	from {
-		transform: rotate(0deg)
-		           translate(-1em)
-		           rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg)
-		           translate(-1em) 
-		           rotate(-360deg);
-	}
+    from {
+        transform: rotate(0deg) translate(-1em) rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg) translate(-1em) rotate(-360deg);
+    }
 }
+
+
+@media screen and (max-width: 767px) {
+    .container {
+        max-width: 720px;
+    }
+
+    /* navbar css for mobile start */
+    .nav-toggler {
+        display: block;
+    }
+
+    .navbar__menu {
+        min-height: 60px;
+    }
+
+    .navbar__menu ul {
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 60px);
+        left: 0;
+        top: 60px;
+        flex-direction: column;
+        align-items: center;
+        border-top: 1px solid #444;
+        background-color: rgba(0, 0, 0, .75);
+        max-height: 0;
+        overflow: hidden;
+        transition: .3s;
+    }
+
+    .navbar__menu ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar__menu ul li a {
+        padding: 25px;
+    }
+
+    .navbar__menu ul li a:hover {
+        background-color: rgba(255, 255, 255, .1);
+    }
+
+    .navbar__menu ul.open {
+        max-height: 100vh;
+        overflow: visible;
+    }
+
+    .intro-area h2 {
+        font-size: 36px;
+        margin-bottom: 15px;
+    }
+
+    /* navbar css for mobile end */
+}
+
+/* mobile breakpoint end */
